@@ -139,3 +139,26 @@ class JSONStorage(BaseStorage):
         """Получить все самолеты из JSON-файла."""
         data = self._load_from_file()
         return [self._dict_to_aeroplane(item) for item in data]
+
+    def save_all_aeroplanes(self, aeroplanes: List[Aeroplane], mode: str = "overwrite") -> None:
+        """
+        Сохраняет список самолетов в файл за ОДНУ операцию (мгновенно).
+        """
+        if mode == "overwrite":
+            # Конвертируем весь список в словари и сохраняем один раз
+            data = [self._aeroplane_to_dict(plane) for plane in aeroplanes]
+            self._save_to_file(data)
+
+        elif mode == "append":
+            # Читаем файл один раз
+            existing_data = self._load_from_file()
+            # Создаем множество ID для быстрого поиска O(1)
+            existing_icao24s = {item["icao24"] for item in existing_data}
+
+            new_data = []
+            for plane in aeroplanes:
+                if plane.icao24 not in existing_icao24s:
+                    new_data.append(self._aeroplane_to_dict(plane))
+
+            # Сохраняем объединенный результат один раз
+            self._save_to_file(existing_data + new_data)
