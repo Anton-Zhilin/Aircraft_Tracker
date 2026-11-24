@@ -1,10 +1,8 @@
 from typing import List
 
-
 from aircraft_tracker.api import AeroplanesAPI
 from aircraft_tracker.models import Aeroplane, AeroplaneParser
 from aircraft_tracker.storage import JSONStorage
-
 
 # Вспомогательные функции для обработки данных
 
@@ -112,17 +110,19 @@ def user_interaction() -> None:
 
     # Фильтр по стране регистрации
     filter_countries_str = input(
-        "🏳️ Введите страны регистрации для фильтрации (через пробел, или Enter для пропуска):\n").strip()
+        "🏳️ Введите страны регистрации для фильтрации (через пробел, или Enter для пропуска):\n"
+    ).strip()
     filter_countries = filter_countries_str.split() if filter_countries_str else []
 
     # Фильтр по высоте (дополнительная возможность)
     altitude_range_str = input(
-        "☁️ Введите диапазон высот полета (например, '5000 - 10000', или Enter для пропуска):\n").strip()
+        "☁️ Введите диапазон высот полета (например, '5000 - 10000', или Enter для пропуска):\n"
+    ).strip()
     min_alt, max_alt = -99999.0, 99999.0
     if altitude_range_str:
         try:
             # Заменяем дефис на пробел и разбиваем, чтобы принять и "5000-10000", и "5000 - 10000"
-            parts = altitude_range_str.replace('-', ' ').split()
+            parts = altitude_range_str.replace("-", " ").split()
             if len(parts) == 2:
                 min_alt, max_alt = float(parts[0]), float(parts[1])
             else:

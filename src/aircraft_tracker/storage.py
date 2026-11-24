@@ -36,6 +36,7 @@ class BaseStorage(ABC):
         """Массово сохранить список самолетов за одну операцию."""
         pass
 
+
 class JSONStorage(BaseStorage):
     """
     Реализация хранилища на основе JSON-файла.
