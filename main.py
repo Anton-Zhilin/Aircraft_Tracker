@@ -1,9 +1,9 @@
 from typing import List
 
 
-from api import AeroplanesAPI
-from models import Aeroplane, AeroplaneParser
-from storage import JSONStorage
+from aircraft_tracker.api import AeroplanesAPI
+from aircraft_tracker.models import Aeroplane, AeroplaneParser
+from aircraft_tracker.storage import JSONStorage
 
 
 # Вспомогательные функции для обработки данных
