@@ -31,6 +31,10 @@ class BaseStorage(ABC):
         """Получить все данные из хранилища."""
         pass
 
+    @abstractmethod
+    def save_all_aeroplanes(self, aeroplanes: List[Aeroplane], mode: str = "overwrite") -> None:
+        """Массово сохранить список самолетов за одну операцию."""
+        pass
 
 class JSONStorage(BaseStorage):
     """

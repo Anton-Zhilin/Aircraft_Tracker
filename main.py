@@ -101,7 +101,7 @@ def user_interaction() -> None:
         return
 
     # Топ N
-    top_n_str = input("🔝 Введите количество самолетов для вывода в ТОП (по высоте): ").strip()
+    top_n_str = input("🔝 Введите количество самолетов для вывода в ТОП (по высоте):\n").strip()
     try:
         top_n = int(top_n_str) if top_n_str else 10
         if top_n <= 0:
@@ -112,12 +112,12 @@ def user_interaction() -> None:
 
     # Фильтр по стране регистрации
     filter_countries_str = input(
-        "🏳️ Введите страны регистрации для фильтрации (через пробел, или Enter для пропуска): ").strip()
+        "🏳️ Введите страны регистрации для фильтрации (через пробел, или Enter для пропуска):\n").strip()
     filter_countries = filter_countries_str.split() if filter_countries_str else []
 
     # Фильтр по высоте (дополнительная возможность)
     altitude_range_str = input(
-        "☁️ Введите диапазон высот полета (например, '5000 - 10000', или Enter для пропуска): ").strip()
+        "☁️ Введите диапазон высот полета (например, '5000 - 10000', или Enter для пропуска):\n").strip()
     min_alt, max_alt = -99999.0, 99999.0
     if altitude_range_str:
         try:
