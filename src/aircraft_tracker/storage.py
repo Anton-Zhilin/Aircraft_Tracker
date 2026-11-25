@@ -51,9 +51,17 @@ class JSONStorage(BaseStorage):
     # Внутренние методы для работы с файлом
 
     def _load_from_file(self) -> List[Dict[str, Any]]:
-        """Загрузить данные из JSON-файла."""
-        with open(self.file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        """Загрузить данные из JSON-файла. Если файл пуст или повреждён — возвращает пустой список."""
+        try:
+            with open(self.file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                # Если файл пустой, возвращаем пустой список
+                if not content.strip():
+                    return []
+                return json.loads(content)
+        except json.JSONDecodeError:
+            # Если файл повреждён, возвращаем пустой список
+            return []
 
     def _save_to_file(self, data: List[Dict[str, Any]]) -> None:
         """Сохранить данные в JSON-файл."""
