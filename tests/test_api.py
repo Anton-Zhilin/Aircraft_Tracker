@@ -98,7 +98,7 @@ class TestAeroplanesAPI(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.api.get_country_coordinates("Spain")
 
-    # --- Тесты get_aeroplanes ---
+    # Тесты get_aeroplanes
 
     @patch("aircraft_tracker.api.requests.get")
     def test_get_aeroplanes_success(self, mock_get):
