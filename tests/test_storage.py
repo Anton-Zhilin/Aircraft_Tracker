@@ -1,6 +1,6 @@
-import unittest
 import os
 import tempfile
+import unittest
 
 from aircraft_tracker.models import Aeroplane
 from aircraft_tracker.storage import JSONStorage
@@ -11,18 +11,12 @@ class TestJSONStorage(unittest.TestCase):
 
     def setUp(self):
         """Создаём временный файл для каждого теста."""
-        self.temp_file = tempfile.NamedTemporaryFile(
-            suffix=".json", delete=False, mode="w"
-        )
+        self.temp_file = tempfile.NamedTemporaryFile(suffix=".json", delete=False, mode="w")
         self.temp_file.close()
         self.storage = JSONStorage(self.temp_file.name)
 
-        self.plane1 = Aeroplane(
-            "4b1812", "SWR438A", "Switzerland", 4267.2, 189.7, False
-        )
-        self.plane2 = Aeroplane(
-            "a1b2c3", "UAL1621", "United States", 10203.18, 268.79, False
-        )
+        self.plane1 = Aeroplane("4b1812", "SWR438A", "Switzerland", 4267.2, 189.7, False)
+        self.plane2 = Aeroplane("a1b2c3", "UAL1621", "United States", 10203.18, 268.79, False)
 
     def tearDown(self):
         """Удаляем временный файл после теста."""
@@ -63,10 +57,7 @@ class TestJSONStorage(unittest.TestCase):
         """Фильтрация по диапазону высот."""
         self.storage.add_aeroplane(self.plane1)
         self.storage.add_aeroplane(self.plane2)
-        result = self.storage.get_aeroplanes({
-            "min_altitude": 5000,
-            "max_altitude": 15000
-        })
+        result = self.storage.get_aeroplanes({"min_altitude": 5000, "max_altitude": 15000})
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0].icao24, "a1b2c3")
 
@@ -90,11 +81,9 @@ class TestJSONStorage(unittest.TestCase):
         """Комбинированная фильтрация."""
         self.storage.add_aeroplane(self.plane1)
         self.storage.add_aeroplane(self.plane2)
-        result = self.storage.get_aeroplanes({
-            "origin_country": "Switzerland",
-            "min_altitude": 4000,
-            "max_altitude": 5000
-        })
+        result = self.storage.get_aeroplanes(
+            {"origin_country": "Switzerland", "min_altitude": 4000, "max_altitude": 5000}
+        )
         self.assertEqual(len(result), 1)
 
     # Тесты save_all_aeroplanes
@@ -120,4 +109,3 @@ class TestJSONStorage(unittest.TestCase):
         self.storage.save_all_aeroplanes([self.plane1], mode="append")
         all_planes = self.storage.get_all_aeroplanes()
         self.assertEqual(len(all_planes), 1)
-

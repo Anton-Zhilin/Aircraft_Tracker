@@ -1,13 +1,7 @@
 import unittest
 
-
-from main import (
-    filter_by_country,
-    filter_by_altitude,
-    sort_by_altitude_desc,
-    get_top_n,
-)
 from aircraft_tracker.models import Aeroplane
+from main import filter_by_altitude, filter_by_country, get_top_n, sort_by_altitude_desc
 
 
 class TestFilterByCountry(unittest.TestCase):
@@ -40,6 +34,7 @@ class TestFilterByCountry(unittest.TestCase):
         result = filter_by_country(self.planes, [])
         self.assertEqual(len(result), 3)
 
+
 class TestFilterByAltitude(unittest.TestCase):
     """Тесты фильтрации по высоте."""
 
@@ -61,6 +56,7 @@ class TestFilterByAltitude(unittest.TestCase):
         """Самолёты без высоты исключаются."""
         result = filter_by_altitude(self.planes, 0, 20000)
         self.assertEqual(len(result), 3)
+
 
 class TestSortByAltitudeDesc(unittest.TestCase):
     """Тесты сортировки по убыванию высоты."""
@@ -117,4 +113,3 @@ class TestGetTopN(unittest.TestCase):
         """N=0 — возвращает пустой список."""
         top = get_top_n(self.planes, 0)
         self.assertEqual(len(top), 0)
-

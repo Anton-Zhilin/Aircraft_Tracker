@@ -1,6 +1,6 @@
-import unittest
-from unittest.mock import patch, MagicMock
 import json
+import unittest
+from unittest.mock import MagicMock, patch
 
 from aircraft_tracker.api import AeroplanesAPI
 
@@ -14,30 +14,50 @@ class TestAeroplanesAPI(unittest.TestCase):
 
     # Примеры ответов API
 
-    NOMINATIM_RESPONSE = [
-        {
-            "place_id": 346277167,
-            "name": "Spain",
-            "boundingbox": ["36.0", "43.8", "-9.3", "3.3"]
-        }
-    ]
+    NOMINATIM_RESPONSE = [{"place_id": 346277167, "name": "Spain", "boundingbox": ["36.0", "43.8", "-9.3", "3.3"]}]
 
     OPENSKY_RESPONSE = {
         "time": 1766142246,
         "states": [
             [
-                "4b1812", "SWR438A ", "Switzerland",
-                1766166618, 1766166618, -0.0168, 51.0888,
-                4267.2, False, 189.7, 129.39, 14.63,
-                None, 4282.44, "2061", False, 0
+                "4b1812",
+                "SWR438A ",
+                "Switzerland",
+                1766166618,
+                1766166618,
+                -0.0168,
+                51.0888,
+                4267.2,
+                False,
+                189.7,
+                129.39,
+                14.63,
+                None,
+                4282.44,
+                "2061",
+                False,
+                0,
             ],
             [
-                "a1b2c3", "UAL1621", "United States",
-                1766166620, 1766166620, -10.5, 52.1,
-                10203.18, False, 268.79, 130.0, 0.0,
-                None, 10250.0, "1000", False, 0
-            ]
-        ]
+                "a1b2c3",
+                "UAL1621",
+                "United States",
+                1766166620,
+                1766166620,
+                -10.5,
+                52.1,
+                10203.18,
+                False,
+                268.79,
+                130.0,
+                0.0,
+                None,
+                10250.0,
+                "1000",
+                False,
+                0,
+            ],
+        ],
     }
 
     # Тесты get_country_coordinates
@@ -117,4 +137,3 @@ class TestAeroplanesAPI(unittest.TestCase):
         with self.assertRaises(RuntimeError) as ctx:
             self.api.get_aeroplanes("Spain")
         self.assertIn("лимит", str(ctx.exception).lower())
-

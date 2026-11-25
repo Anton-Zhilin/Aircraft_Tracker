@@ -14,7 +14,7 @@ class TestAeroplane(unittest.TestCase):
             origin_country="Switzerland",
             baro_altitude=4267.2,
             velocity=189.7,
-            on_ground=False
+            on_ground=False,
         )
         self.plane2 = Aeroplane(
             icao24="a1b2c3",
@@ -22,7 +22,7 @@ class TestAeroplane(unittest.TestCase):
             origin_country="United States",
             baro_altitude=10203.18,
             velocity=268.79,
-            on_ground=False
+            on_ground=False,
         )
 
     # Тесты валидации
@@ -131,15 +131,27 @@ class TestAeroplaneParser(unittest.TestCase):
     RAW_RESPONSE = {
         "time": 1766142246,
         "states": [
-            ["4b1812", "SWR438A", "Switzerland",
-             1766166618, 1766166618, -0.0168, 51.0888,
-             4267.2, False, 189.7, 129.39, 14.63,
-             None, 4282.44, "2061", False, 0],
-            ["a1b2c3", None, None,
-             None, None, None, None,
-             None, None, None, None, None,
-             None, None, None, None, None]
-        ]
+            [
+                "4b1812",
+                "SWR438A",
+                "Switzerland",
+                1766166618,
+                1766166618,
+                -0.0168,
+                51.0888,
+                4267.2,
+                False,
+                189.7,
+                129.39,
+                14.63,
+                None,
+                4282.44,
+                "2061",
+                False,
+                0,
+            ],
+            ["a1b2c3", None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
+        ],
     }
 
     def test_parse_success(self):
@@ -167,4 +179,3 @@ class TestAeroplaneParser(unittest.TestCase):
         """Отсутствие ключа 'states' — возвращается пустой список."""
         result = AeroplaneParser.parse_from_opensky_response({"time": 123})
         self.assertEqual(result, [])
-
